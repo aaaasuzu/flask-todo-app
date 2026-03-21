@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Todo</title>
+
+<style>
+body{
+background:#111;
+color:white;
+font-family:sans-serif;
+width:500px;
+margin:auto;
+}
+
+h1{
+text-align:center;
+}
+
+input,select,button{
+padding:8px;
+margin:5px;
+}
+
+.done{
+text-decoration: line-through;
+color:gray;
+}
+
+.high{
+color:red;
+font-weight:bold;
+}
+
+.medium{
+color:orange;
+}
+
+.low{
+color:gray;
+}
+
+.overdue{
+color:#ff4444;
+}
+
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Todoアプリ</h1>
+
+<form method="POST">
+
+<input type="text" name="task" placeholder="タスク">
+
+<input type="date" name="deadline">
+
+<select name="priority">
+<option value="1">低</option>
+<option value="2">中</option>
+<option value="3">高</option>
+</select>
+
+<button type="submit">追加</button>
+
+</form>
+
+<ul>
+
+{% for task in tasks %}
+
+<li class="{% if task.done %}done{% endif %}">
+
+<form action="/done/{{ task.id }}" method="POST" style="display:inline">
+
+<input type="checkbox"
+onchange="this.form.submit()"
+{% if task.done %}checked{% endif %}>
+
+
+
+</form>
+
+{% if task.priority == 3 %}
+<span class="high">
+{% elif task.priority == 2 %}
+<span class="medium">
+{% else %}
+<span class="low">
+{% endif %}
+
+{{ task.task }}
+
+</span>
+
+{% if task.priority == 3 %}
+<span class="high">
+{% elif task.priority == 2 %}
+<span class="medium">
+{% else %}
+<span class="low">
+{% endif %}
+
+{{ task.task }}
+</span>
+
+{% if task.deadline %}
+{% if task.deadline < today %}
+<span class="overdue">
+(期限切れ {{ task.deadline }})
+</span>
+{% else %}
+<span>
+({{ task.deadline }})
+</span>
+{% endif %}
+{% endif %}
+
+
+
+
+
+<a href="/delete/{{ task.id }}">削除</a>
+
+</li>
+
+{% endfor %}
+
+</ul>
+
+</body>
+</html>

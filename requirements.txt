@@ -1,0 +1,4 @@
+notepad requirements.txt
+Flask
+gunicorn
+werkzeug
