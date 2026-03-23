@@ -8,4 +8,4 @@
 - 優先度・期限設定
 
 ## URL
-https://〇〇.onrender.com
+https://web-todo-ro2z.onrender.com/
